@@ -32,7 +32,7 @@ class Server {
         this.app.use(express.static('public')) // mandaremos nuestra web desde la carpeta public
     }
     router(){
-        this.app.use(this.usersPath,require('./routes/users.routes'))
+        this.app.use(this.usersPath,require('./routes/users.routes')) // utilizar esta ruta desde el archivo de enrutamientp
     }
     // DENTRO DE LAS CLASES TENEMOS VARIABLES, VALORES Y METODOS
         // Metodo para que podamos abrir nuestro servidor 

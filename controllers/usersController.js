@@ -23,8 +23,10 @@ const createUser = async(req = request, res = response) => {
 const readUser = async(req, res) => {
     try {   //query parameters, mandar llamar en DB el numero de registros con /?limit=numero que queramos.
         const { limit } = req.query 
+        const recordLength = await User.countDocuments()
         const user = await User.find().limit(Number(limit));
         res.json({
+        recordLength, //saber la cantidad de registros que tengo aunque en mi limit parameter mande llamar 1
         user
         })
     }catch(error){

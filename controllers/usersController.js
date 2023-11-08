@@ -59,12 +59,13 @@ const updateUser = async(req = request, res) => {
     }
     
 }
-const deleteUser = async(req = request, res = response) => {
+const deleteUsers = async(req = request, res = response) => {
     try{
         const { userId } = req.params;
-        await User.findByIdAndUpdate(userId, {"active":false}) // dos parametros userId parametro tipo json propiedad en false
-        const userToShow = await User.findById(userId)   // para mostrar lo que se modifico despues de haber hecho el borrado logico
-        res.status(200).json({
+        const deleteState = { "active": false }
+        await User.findByIdAndUpdate( userId, deleteState ) // dos parametros userId parametro tipo json propiedad en false
+        const userToShow = await User.findById( userId )   // para mostrar lo que se modifico despues de haber hecho el borrado logico
+        res.status(202).json({
             msg:"Se borro el registro",
             userToShow
         })
@@ -79,5 +80,5 @@ module.exports = {
     createUser,
     readUser,
     updateUser,
-    deleteUser
+    deleteUsers
 }

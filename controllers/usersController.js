@@ -38,23 +38,46 @@ const readUser = async(req, res) => {
     }
     
 }
-const updateUser = (req = request, res = response) => {
-    const { params, query } = req;
-    console.log(query);
-    console.log(params)
-    res.json ({
-        msg:"modificar usuarios desde controller"
-    })
+const updateUser = async(req = request, res) => {
+    try{
+        const { params, body } = req;
+        const { userId } = params // propiedad de user.routes.js desestructar 
+        console.log(userId)
+        await User.findByIdAndUpdate(userId, body) //findby... tiene como primer parametro que ser el usuario a modificar y el segundo parametro el body para regresar el usuario
+        const userToShow = await User.findById(userId)
+        //console.log(query);
+        //console.log(params)
+        res.status(202).json ({
+            msg:"Los usuarios se modificaron con exito",
+            userToShow
+        })
+    } catch (error) {
+        res.status(500).json({
+            msg:"Algo Ocurrio al modificar el registro",
+            error
+        })
+    }
+    
 }
-const deleteUsers = (req, res) => {
-    res.json({
-        msg:"Borrar usuarios desde el controller"
-    })
+const deleteUser = async(req = request, res = response) => {
+    try{
+        const { userId } = req.params;
+        await User.findByIdAndUpdate(userId, {"active":false}) // dos parametros userId parametro tipo json propiedad en false
+        const userToShow = await User.findById(userId)   // para mostrar lo que se modifico despues de haber hecho el borrado logico
+        res.status(200).json({
+            msg:"Se borro el registro",
+            userToShow
+        })
+    } catch (error) {
+        res.status(500).json({
+            msg:"Borrar usuarios desde el controller"
+        })
+    }
 }
 
 module.exports = {
     createUser,
     readUser,
     updateUser,
-    deleteUsers
+    deleteUser
 }

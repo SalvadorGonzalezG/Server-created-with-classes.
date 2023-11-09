@@ -61,7 +61,7 @@ const updateUser = async(req = request, res) => {
 }
 const deleteUsers = async(req = request, res = response) => {
     try{
-        const { userId } = req.params;
+        const { userId } = req.params; //desestructurrando.
         const deleteState = { "active": false }
         await User.findByIdAndUpdate( userId, deleteState ) // dos parametros userId parametro tipo json propiedad en false
         const userToShow = await User.findById( userId )   // para mostrar lo que se modifico despues de haber hecho el borrado logico

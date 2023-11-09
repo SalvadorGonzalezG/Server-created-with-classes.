@@ -23,4 +23,7 @@ const UserSchema = Schema({
         default:true
     }
 })
+UserSchema.method('getInitial', function() {
+    return this.userName[0] //retorna la primera letra de nuestro user name. //doc mongoose uso de  clases
+})
 module.exports = model('User', UserSchema) //recibe el nombre y el schema ya que model es una funcion.

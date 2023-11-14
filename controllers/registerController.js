@@ -1,23 +1,31 @@
-const { response, request } = require('express')
-const User = require("../models/usersModel")// importamos User
-const bcrypt = require('bcrypt')
+const { response, request } = require('express');
+const User = require("../models/usersModel"); // importamos User
+const bcrypt = require('bcryptjs')
+
 const registerUser = async (req = request, res = response) => {
     try {
-    const { userName, password, email } = req; //tomamos userName, password, email. 
+    const { userName, password, email } = req.body; //tomamos userName, password, email. 
+    
+    const user = await User.findOne({ userName }) //verifica si el usuario ya existe
 
-    if(!userName){
-        bcrypt.hash(password, 10, async(err,hashedPassword) => { // ocupamos la contraseña numero de veces que se hace el hash y el call back err y hass pasword
-        if (err) { console.log(err.stack)} // if que devuelve el error
-         
+    if(!user){
+        const salt = await bcrypt.genSalt(10);
+        //console.error("Salt", salt)
+
+        const hashedPassword = await bcrypt.hashSync(password, salt) // guardamos de forma haseada la contraseña
         const user = new User({ userName, email, password: hashedPassword }) //clase User y body lo que va a leer el constructor.
-        await user.save()
+        await user.save() // Guarda en la base de datos
+        //console.error("Hashed", hashedPassword)
+
         res.status(201).json({ 
-            //msg: "Usuario Creado",
-            user
+            message:"El usuario fue creado correctamente"
         })
-        })
-    }
-    } catch(error){ // error cuando intentas crear un usuario.
+        } else { 
+            res.status(403).json({
+                message: "El nombre de usuario ya existe"
+            })
+        }
+    } catch (error) { // error cuando intentas crear un usuario.
         res.status(500).json({ // error en el servidor
             msg:"Algo Ocurrio al crear un usuario",
             error // manda el error de el porque ocurre este error.

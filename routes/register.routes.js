@@ -1,5 +1,6 @@
+// DEFINIMOS LA RUTA DE REGISTER
 
-const { Router } = require('express')
+const { Router } = require('express');
 const { registerUser } = require('../controllers/registerController')
 
 const router = Router()

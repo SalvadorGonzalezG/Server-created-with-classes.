@@ -7,7 +7,6 @@ const createUser = async(req = request, res = response) => {
         const { body } = req; //desestructurando una función 
         const user = new User(body) //clase User y body lo que va a leer el constructor.
         await user.save()
-
         res.status(201).json({ //creando un usuario
             msg: "Usuario Creado",
             user

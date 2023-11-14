@@ -12,6 +12,7 @@ class Server {
         this.port = process.env.PORT || 3001; // variable que se la variable de entorno que se llame .port o la 3001
         this.database = new Database();
         this.usersPath = '/api/usuarios';
+        this.registerPath = '/api/register';
         this.middlewares();
         // Database connection.
         this.dbConnection();
@@ -34,6 +35,7 @@ class Server {
     }
     router(){
         this.app.use(this.usersPath, require('./routes/users.routes'), errors()) // utilizar esta ruta desde el archivo de enrutamientp
+        this.app.use(this.registerPath, require('./routes/'))
     }
     // DENTRO DE LAS CLASES TENEMOS VARIABLES, VALORES Y METODOS
         // Metodo para que podamos abrir nuestro servidor 

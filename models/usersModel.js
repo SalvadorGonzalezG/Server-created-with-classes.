@@ -17,7 +17,7 @@ const UserSchema = Schema({
     },
     password: {
         type:String,
-        required: [true, "El password es requerido"]
+        required: [true, "El password es requerido"]  
     },
     active:{ // Usuario activo por defecto.
         type:Boolean,

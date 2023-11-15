@@ -43,7 +43,7 @@ const loginUser = async (req = request, res = response) => {
             msg:"El usuario no fue encontrado"
         })
     }
- //hashedPasword se va a comprobras con el password de req.body
+ //hashedPasword comprueba con el password de req.body
  const correctPassword = bcrypt.compareSync(password, user.password)
     
     if(correctPassword) {

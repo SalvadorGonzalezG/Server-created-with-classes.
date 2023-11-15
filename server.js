@@ -12,7 +12,7 @@ class Server {
         this.port = process.env.PORT || 3001; // variable que se la variable de entorno que se llame .port o la 3001
         this.database = new Database();
         this.usersPath = '/api/usuarios';
-        this.registerPath = '/api/register';
+        this.registerPath = '/api/auth';
         this.middlewares();
         // Database connection.
         this.dbConnection();

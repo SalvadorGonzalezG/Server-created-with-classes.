@@ -1,6 +1,7 @@
 const { response, request } = require("express");
 const User = require("../models/usersModel"); // importamos User
 const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
 
 const registerUser = async (req = request, res = response) => {
     try {
@@ -45,10 +46,10 @@ const loginUser = async (req = request, res = response) => {
     }
  //hashedPasword comprueba con el password de req.body
  const correctPassword = bcrypt.compareSync(password, user.password)
-    
+    const token = jwt.sign({ id: user._id, userName: user.userName}, "cambiame-esto-por-algo-seguro") //pailot and firma
     if(correctPassword) {
         res.status(200).json({
-            msg: "La contraseña es correcta"
+            token
         })
     } else {
         res.status(403).json({

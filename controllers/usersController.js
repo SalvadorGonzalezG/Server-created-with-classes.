@@ -1,10 +1,16 @@
 const {response, request, query} = require ("express")
 const User = require('../models/usersModel')
+const bcrypt = require('bcrypt')
 
 const createUser = async(req = request, res = response) => {    
     //console.log(body)
     try{
+        // creamos la encriptación para el usuario con el hash
         const { body } = req; //desestructurando una función 
+        const { password } = body
+        const salt = await bcrypt.genSalt(10)
+        body.password = await bcrypt.hash(password, salt)
+
         const user = new User(body) //clase User y body lo que va a leer el constructor.
         await user.save()
         res.status(201).json({ //creando un usuario

@@ -46,8 +46,11 @@ const loginUser = async (req = request, res = response) => {
     }
  //hashedPasword comprueba con el password de req.body
  const correctPassword = bcrypt.compareSync(password, user.password)
-    const token = jwt.sign({ id: user._id, userName: user.userName}, "cambiame-esto-por-algo-seguro") //pailot and firma
+
     if(correctPassword) {
+    const token = jwt.sign({ id: user._id, userName: user.userName }, "cambia-por-algo-seguro") //pailot and firma
+    
+    
         res.status(200).json({
             token
         })

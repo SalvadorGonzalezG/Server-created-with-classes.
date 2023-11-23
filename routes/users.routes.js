@@ -10,11 +10,12 @@ const {
  // importación de userValidator.
 //const { schema } = require ("../validators/userValidator")
 const { celebrateValidator } = require("../middlewares/celebrateValidators");
-const { validateToken } = require('../middlewares/jwtValidator')
+const { validateToken } = require('../middlewares/jwtValidator');
+const { validarJWT } = require("../middlewares/validar-jwt");
 
 const router = Router(); //funcion que se extrae desde el paquete de express y lo quiero ejecutar
 /*validatePost(schema)*/
-router.post("/", validateToken("cambia-por-algo-seguro"), celebrateValidator, createUser)        // c created
+router.post("/", validarJWT, validateToken("cambia-por-algo-seguro"), celebrateValidator, createUser)        // c created
 
 router.get("/",readUser)             // R read
 router.put("/:userId",updateUser)      // U update.

@@ -35,7 +35,7 @@ class Server {
     }
     router(){
         this.app.use(this.usersPath, require('./routes/users.routes'), errors()) // utilizar esta ruta desde el archivo de enrutamientp
-        this.app.use(this.registerPath, require('./routes/register.routes'))
+        this.app.use(this.registerPath, require('./routes/auth.routes'))
     }
     // DENTRO DE LAS CLASES TENEMOS VARIABLES, VALORES Y METODOS
         // Metodo para que podamos abrir nuestro servidor 
